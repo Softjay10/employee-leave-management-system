@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+<head>
+    <include th:replace="views/backend/components/metas :: metas"></include>
+    <include th:replace="views/backend/components/styles :: styles"></include>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- navbar -->
+    <include th:replace="views/backend/components/navbar :: navbar"></include>
+    <!-- sidebar -->
+    <include th:replace="views/backend/components/sidebar :: sidebar"></include>
+
+    <!-- content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6 animated bounceInRight">
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Employees</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content Header (Page header) -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-outline card-teal">
+                    <div class="card-header">
+                        <h5><i class="fa fa-plus"></i>  Update Employees Information</h5>
+                    </div>
+
+                    <form th:action="@{/save-employees}" th:object="${employees}" enctype="multipart/form-data" method="post">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="row">
+
+                                        <!-- UPDATE ID -->
+                                        <div class="form-group">
+                                            <!-- Add hidden form field to handle update -->
+                                            <input th:field="*{id}" type="hidden"  class="form-control" id="txtId"/>
+                                        </div>
+
+                                        <div class="col-md-2 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Employee Number</label>
+                                                <div class="position-relative">
+                                                    <input type="number" th:field="*{employeeNumber}" class="form-control form-rounded" placeholder="ex- 11001" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-id-card"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label class="col-form-label">FirstName:</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{firstName}" class="form-control form-rounded" placeholder="First Name" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label class="col-form-label">MiddleName:</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{middleName}" class="form-control form-rounded" placeholder="Middle Name" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label class="col-form-label">LastName:</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{lastName}" class="form-control form-rounded" placeholder="Last Name" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Age</label>
+                                                <div class="position-relative">
+                                                    <input type="number" th:field="*{age}" class="form-control form-rounded" placeholder="00" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Gender</label>
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select form-control" name="gender" required>
+                                                            <option>Male</option>
+                                                            <option>Female</option>
+                                                        </select>
+                                                        <div class="form-control-icon">
+                                                            <i class="fa fa-user-circle"></i>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Department</label>
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select form-control" name="department" required>
+                                                            <option th:each="row:${department}"
+                                                                    th:value="${row.id}"
+                                                                    th:text="${row.departmentName}">
+                                                            </option>
+                                                        </select>
+                                                        <div class="form-control-icon">
+                                                            <i class="fa fa-users"></i>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Designation</label>
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select form-control" name="designation" required>
+                                                            <option th:each="row:${designations}"
+                                                                    th:value="${row.id}"
+                                                                    th:text="${row.designationName}">
+                                                            </option>
+                                                        </select>
+                                                        <div class="form-control-icon">
+                                                            <i class="fa fa-users"></i>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Email</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{email}" class="form-control" placeholder="@gmail.com" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-envelope"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Contact</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{contact}" class="form-control" placeholder="ex. 09XXX-XXX-XXX" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="first-name-icon">Username</label>
+                                                <div class="position-relative">
+                                                    <input type="text" th:field="*{username}" class="form-control" placeholder="Username" id="first-name-icon" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="first-name-icons">Password</label>
+                                                <div class="position-relative">
+                                                    <input type="password" th:field="*{password}" class="form-control" id="first-name-icons" placeholder="Password" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-key"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label>Date Registered</label>
+                                                <div class="position-relative">
+                                                    <input type="date" th:field="*{dateRegister}" class="form-control" placeholder="Date Registered" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-calendar-day"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Status:</label>
+                                                <input type="radio" th:field="*{status}" class="form-check-inline" value="Active" required> Active
+                                                <input type="radio" th:field="*{status}" class="form-check-inline" value="Not Active" required> Not Active
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn bg-teal btn-rounded">
+                                <i class="fa fa-save"></i> Update
+                            </button>
+                            <a href="/employees" class="btn btn-outline-danger btn-rounded">
+                                <i class="fa fa-times"></i> Close
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- end Main content -->
+
+
+    </div>
+    <!-- end content wrapper -->
+
+
+</div>
+<include th:replace="views/backend/components/scripts :: scripts"></include>
+
+
+</body>
+</html>

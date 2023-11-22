@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
+<head>
+    <include th:replace="views/backend/components/metas :: metas"></include>
+    <include th:replace="views/backend/components/styles :: styles"></include>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- navbar -->
+    <include th:replace="views/backend/components/navbar :: navbar"></include>
+    <!-- sidebar -->
+    <include th:replace="views/backend/components/sidebar :: sidebar"></include>
+
+    <!-- content wrapper -->
+    <div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+<!--                        <a href="/add-leaveType" class="btn bg-teal"><i class="fas fa-plus-square"></i> Add LeaveType</a>-->
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active"> Not Approved Type</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Content Header (Page header) -->
+
+
+        <!-- Main content -->
+        <section class="content">
+            <!--contain table-->
+            <div class="section-body mt-3">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                        <div class="col-lg-12">
+                            <div class="card card-dark card-outline">
+                                <div class="card-body">
+                                    <div class="box box-primary">
+                                        <div class="box-body">
+
+                                            <table class="table table-bordered table-hover text-center" width="100%">
+                                                <thead>
+                                                <tr>
+                                                    <td>Leave Name</td>
+                                                    <td>Number of Days Allowed</td>
+                                                    <td>Description</td>
+                                                    <td>Status</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <div th:if="${not #lists.isEmpty(notApproveLeave)}">
+                                                    <tr th:each="row:${notApproveLeave}" th:field="${row}">
+                                                        <td th:text="${row.leaveName}"></td>
+                                                        <td th:text="${row.numberOfLeaveDays}"></td>
+                                                        <td th:text="${row.description}"></td>
+
+                                                        <td th:if="${row.status == 'not approved'}" class="text-color-gray"><span class="text-white bg-red p-2 rounded">Not Approved</span></td>
+
+                                                    </tr>
+                                                </div>
+                                                <div th:if="${#lists.isEmpty(notApproveLeave)}">
+                                                    <tr>
+                                                        <td>No All Not Approved Leave exists!</td>
+                                                    </tr>
+                                                </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end contain table-->
+
+
+        </section>
+        <!--end of main content-->
+
+    </div>
+    <!-- end content wrapper -->
+
+    <!--footer-->
+    <include th:replace="views/backend/components/footer :: footer"></include>
+
+</div>
+<include th:replace="views/backend/components/scripts :: scripts"></include>
+
+
+<!--delete modal-->
+<script>
+    /** Delete Modal **/
+    $('document').ready(function () {
+
+        /** Delete Modal **/
+        $('.table #deleteButton').on('click', function (event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $('#deleteModal #delRef').attr('href', href);
+            $('#deleteModal').modal();
+        });
+
+    });
+</script>
+
+</body>
+</html>
